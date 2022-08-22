@@ -11,7 +11,7 @@ class HeaderSection extends React.Component {
 
 
   componentDidMount() {
-    if(window.location.href=="http://localhost:3000/inventory"){
+    if(window.location.href=="https://instock-project.herokuapp.com/inventory"){
       console.log("yes")
       this.setState({inventoryClass:"button__inventory--active", warehouseClass:""})
     } else {
