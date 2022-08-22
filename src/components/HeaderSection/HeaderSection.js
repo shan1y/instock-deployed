@@ -13,6 +13,8 @@ class HeaderSection extends React.Component {
   componentDidMount() {
     if(window.location.href=="https://instock-project.herokuapp.com/inventory"){
       this.setState({inventoryClass:"button__inventory--active", warehouseClass:""})
+    } else if(window.location.href="https://instock-project.herokuapp.com/"){
+      this.setState({inventoryClass:"", warehouseClass:"button__warehouse--active"})
     } else {
       return
     }
