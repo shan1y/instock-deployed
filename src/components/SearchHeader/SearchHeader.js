@@ -1,7 +1,7 @@
 import "./SearchHeader.scss";
 import { Link } from "react-router-dom";
 
-function SearchHeader({ title, urlPath, item }) {
+function SearchHeader({ title, urlPath, item, handleOnChange }) {
   return (
     <>
       <div className="search">
@@ -9,6 +9,7 @@ function SearchHeader({ title, urlPath, item }) {
         <form className="search__form form">
           <label className="form__label" htmlFor="search"></label>
           <input
+          onChange={(event)=>handleOnChange(event.target.value)}
             className="form__input"
             placeholder="Search..."
             name="search"

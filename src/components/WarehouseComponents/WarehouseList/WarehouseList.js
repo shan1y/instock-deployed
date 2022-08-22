@@ -42,6 +42,8 @@ class WarehouseList extends React.Component {
       });
   };
 
+  
+
   render() {
     const activeWarehouseId = this.state.activeWarehouseId;
     let modalData = this.state.warehouseList.find((warehouse) => {
@@ -67,9 +69,11 @@ class WarehouseList extends React.Component {
         )}
 
         <SearchHeader
+          handleOnChange={this.props.handleOnChange}
           title={"Warehouses"}
           urlPath={"/warehouse/add"}
           item={"Warehouse"}
+          searchTerm={this.props.searchTerm}
         />
 
         <ul className="sorter">
@@ -89,108 +93,141 @@ class WarehouseList extends React.Component {
             Actions<button className="sorter__button"></button>
           </li>
         </ul>
-        {this.state.warehouseList.map((warehouse) => {
-          return (
-            <div key={warehouse.id}>
-              <div className="warehouseCard">
-                <ul className="warehouseCard__content-list">
-                  <ul className="warehouseCard__sub-list">
-                    <li className="warehouseCard__list-details">
-                      <h4 className="warehouseCard__list-title">Warehouse</h4>
+        {this.state.warehouseList
+          .filter((warehouse) => {
+            if (this.props.searchTerm === "") {
+              return warehouse;
+            } else if (
+              warehouse.name
+                .toLowerCase()
+                .includes(this.props.searchTerm.toLowerCase()) ||
+              warehouse.address
+                .toLowerCase()
+                .includes(this.props.searchTerm.toLowerCase()) ||
+              warehouse.city
+                .toLowerCase()
+                .includes(this.props.searchTerm.toLowerCase()) ||
+              warehouse.country
+                .toLowerCase()
+                .includes(this.props.searchTerm.toLowerCase()) ||
+              warehouse.contact.name
+                .toLowerCase()
+                .includes(this.props.searchTerm.toLowerCase()) ||
+              warehouse.contact.position
+                .toLowerCase()
+                .includes(this.props.searchTerm.toLowerCase()) ||
+              warehouse.contact.phone
+                .toLowerCase()
+                .includes(this.props.searchTerm.toLowerCase()) ||
+              warehouse.contact.email
+                .toLowerCase()
+                .includes(this.props.searchTerm.toLowerCase())
+            ) {
+              return warehouse;
+            }
+          })
+          .map((warehouse) => {
+            return (
+              <div key={warehouse.id}>
+                <div className="warehouseCard">
+                  <ul className="warehouseCard__content-list">
+                    <ul className="warehouseCard__sub-list">
+                      <li className="warehouseCard__list-details">
+                        <h4 className="warehouseCard__list-title">Warehouse</h4>
 
-                      <Link to={`/warehouse/${warehouse.id}/inventory`}>
-                        <div className="warehouseCard__link-item">
-                          <div className="warehouseCard__link body-medium">
-                            {warehouse.name}
+                        <Link to={`/warehouse/${warehouse.id}/inventory`}>
+                          <div className="warehouseCard__link-item">
+                            <div className="warehouseCard__link body-medium">
+                              {warehouse.name}
+                            </div>
+                            <img src={chevron} alt="chevron icon" />
                           </div>
-                          <img src={chevron} alt="chevron icon" />
-                        </div>
-                      </Link>
-                    </li>
-                    <li className="warehouseCard__list-details">
-                      <h4 className="warehouseCard__list-title">Address</h4>
-                      <p className="warehouseCard__info body-medium">
-                        {warehouse.address}
-                      </p>
-                      <p className="warehouseCard__info body-medium">
-                        {warehouse.city}, {warehouse.country}
-                      </p>
-                    </li>
+                        </Link>
+                      </li>
+                      <li className="warehouseCard__list-details">
+                        <h4 className="warehouseCard__list-title">Address</h4>
+                        <p className="warehouseCard__info body-medium">
+                          {warehouse.address}
+                        </p>
+                        <p className="warehouseCard__info body-medium">
+                          {warehouse.city}, {warehouse.country}
+                        </p>
+                      </li>
+                    </ul>
+                    <ul className="warehouseCard__sub-list">
+                      <li className="warehouseCard__list-details">
+                        <h4 className="warehouseCard__list-title">
+                          Contact Name
+                        </h4>
+                        <p className="warehouseCard__info body-medium">
+                          {warehouse.contact.name}
+                        </p>
+                      </li>
+                      <li className="warehouseCard__list-details">
+                        <h4 className="warehouseCard__list-title">
+                          Contact Information
+                        </h4>
+                        <p className="warehouseCard__info body-medium">
+                          {warehouse.contact.phone}
+                        </p>
+                        <p className="warehouseCard__info body-medium">
+                          {warehouse.contact.email}
+                        </p>
+                      </li>
+                    </ul>
                   </ul>
-                  <ul className="warehouseCard__sub-list">
-                    <li className="warehouseCard__list-details">
-                      <h4 className="warehouseCard__list-title">
-                        Contact Name
-                      </h4>
-                      <p className="warehouseCard__info body-medium">
-                        {warehouse.contact.name}
-                      </p>
-                    </li>
-                    <li className="warehouseCard__list-details">
-                      <h4 className="warehouseCard__list-title">
-                        Contact Information
-                      </h4>
-                      <p className="warehouseCard__info body-medium">
-                        {warehouse.contact.phone}
-                      </p>
-                      <p className="warehouseCard__info body-medium">
-                        {warehouse.contact.email}
-                      </p>
-                    </li>
-                  </ul>
-                </ul>
-                <div className="warehouseCard__buttons">
-                  <button
-                    onClick={() => {
-                      this.openModal(warehouse.id);
-                    }}
-                    type="button"
-                    className="warehouseCard__button--delete"
-                  ></button>
-                  <Link to={`/warehouse/${warehouse.id}/edit`}>
-                    <div className="warehouseCard__button--edit"></div>
-                  </Link>
-                </div>
-              </div>
-              <div className="warehouseCard--tablet">
-                <Link to={`/warehouse/${warehouse.id}/inventory`}>
-                  <div className="warehouseCard__link--tablet body-medium">
-                    {warehouse.name}
-                    <img src={chevron} alt="chevron" />
+                  <div className="warehouseCard__buttons">
+                    <button
+                      onClick={() => {
+                        this.openModal(warehouse.id);
+                      }}
+                      type="button"
+                      className="warehouseCard__button--delete"
+                    ></button>
+                    <Link to={`/warehouse/${warehouse.id}/edit`}>
+                      <div className="warehouseCard__button--edit"></div>
+                    </Link>
                   </div>
-                </Link>
-                <p className="warehouseCard__address--tablet body-medium">
-                  {warehouse.address}, {warehouse.city}, {warehouse.country}
-                </p>
-
-                <p className="warehouseCard__info--name body-medium">
-                  {warehouse.contact.name}
-                </p>
-                <div>
-                  <p className="warehouseCard__info--contact body-medium">
-                    {warehouse.contact.phone}
-                  </p>
-                  <p className="warehouseCard__info--contact body-medium">
-                    {warehouse.contact.email}
-                  </p>
                 </div>
-                <div className="warehouseCard__buttons warehouseCard__buttons--tablet">
-                  <button
-                    onClick={() => {
-                      this.openModal(warehouse.id);
-                    }}
-                    type="button"
-                    className="warehouseCard__button--delete"
-                  ></button>
-                  <Link
-                    to={`/warehouse/${warehouse.id}/edit`}
-                    className="warehouseCard__button--edit"
-                  ></Link>
+                <div className="warehouseCard--tablet">
+                  <Link to={`/warehouse/${warehouse.id}/inventory`}>
+                    <div className="warehouseCard__link--tablet body-medium">
+                      {warehouse.name}
+                      <img src={chevron} alt="chevron" />
+                    </div>
+                  </Link>
+                  <p className="warehouseCard__address--tablet body-medium">
+                    {warehouse.address}, {warehouse.city}, {warehouse.country}
+                  </p>
+
+                  <p className="warehouseCard__info--name body-medium">
+                    {warehouse.contact.name}
+                  </p>
+                  <div>
+                    <p className="warehouseCard__info--contact body-medium">
+                      {warehouse.contact.phone}
+                    </p>
+                    <p className="warehouseCard__info--contact body-medium">
+                      {warehouse.contact.email}
+                    </p>
+                  </div>
+                  <div className="warehouseCard__buttons warehouseCard__buttons--tablet">
+                    <button
+                      onClick={() => {
+                        this.openModal(warehouse.id);
+                      }}
+                      type="button"
+                      className="warehouseCard__button--delete"
+                    ></button>
+                    <Link
+                      to={`/warehouse/${warehouse.id}/edit`}
+                      className="warehouseCard__button--edit"
+                    ></Link>
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
       </>
     );
   }

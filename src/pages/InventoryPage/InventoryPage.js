@@ -47,6 +47,7 @@ class InventoryPage extends React.Component {
     // window.scrollTo(0, 0);
   };
 
+
   closeModal = () => this.setState({ isOpen: false });
 
   deleteItem = (id) => {
@@ -69,8 +70,10 @@ class InventoryPage extends React.Component {
           title={"Inventory"}
           urlPath={"/inventory/add"}
           item="Item"
+          handleOnChange={this.props.handleOnChange}
         />
         <InventoryList
+        searchTerm={this.props.searchTerm}
           updateStatus={this.statusToggle}
           statusStyle={this.statusStyleToggle}
           inventoryList={this.state.inventory}

@@ -14,14 +14,41 @@ import InventoryItem from "./components/InventoryComponents/InventoryItem/Invent
 import InventoryEdit from "./components/InventoryComponents/InventoryEdit/InventoryEdit";
 
 class App extends React.Component {
+  state = {
+    searchTerm: "",
+  };
+
+  handleOnChange = (userInput) => {
+    this.setState({ searchTerm: userInput });
+  };
   render() {
     return (
       <BrowserRouter>
         <div className="app__body">
           <HeaderSection />
           <Switch>
-            <Route path="/" exact component={WareHousePage} />
-            <Route path="/warehouse" exact component={WareHousePage} />
+            <Route
+              path="/"
+              exact
+              render={(props) => (
+                <WareHousePage
+                  searchTerm={this.state.searchTerm}
+                  handleOnChange={this.handleOnChange}
+                  {...props}
+                />
+              )}
+            />
+            <Route
+              path="/warehouse"
+              exact
+              render={(props) => (
+                <WareHousePage
+                  searchTerm={this.state.searchTerm}
+                  handleOnChange={this.handleOnChange}
+                  {...props}
+                />
+              )}
+            />
             <Route path="/warehouse/add" component={WarehouseAdd} />
             <Route path="/warehouse/:id/edit" component={WarehouseEdit} />
             <Route
@@ -29,7 +56,17 @@ class App extends React.Component {
               component={WarehouseDetails}
             />
 
-            <Route path="/inventory" exact component={InventoryPage} />
+            <Route
+              path="/inventory"
+              exact
+              render={(props) => (
+                <InventoryPage
+                  searchTerm={this.state.searchTerm}
+                  handleOnChange={this.handleOnChange}
+                  {...props}
+                />
+              )}
+            />
             <Route path="/inventory/add" exact component={InventoryAdd} />
             <Route path="/inventory/:id" exact component={InventoryItem} />
             <Route path="/inventory/edit/:id" exact component={InventoryEdit} />

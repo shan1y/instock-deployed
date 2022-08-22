@@ -14,6 +14,7 @@ function InventoryList({
   deleteItem,
   activeInventoryId,
   isOpen,
+  searchTerm,
 }) {
   let modalData = inventoryList.find((inventory) => {
     return activeInventoryId === inventory.id;
@@ -69,74 +70,95 @@ function InventoryList({
             <button className="InventoryFilter__button"></button>
           </div>
         </div>
-        {inventoryList.map((item) => {
-          return (
-            <div className="InventoryCard" key={item.id}>
-              <ul className="InventoryCard__content-list">
-                <ul className="InventoryCard__sub-list InventoryCard__sub-list--margin1">
-                  <li className="InventoryCard__list-details InventoryCard__list-details--margin1">
-                    <h4 className="InventoryCard__list-title">
-                      Inventory Item
-                    </h4>
-                    <Link to={`/inventory/${item.id}`}>
-                      <div className="InventoryCard__link-item InventoryCard__link-item--margin">
-                        <div className="InventoryCard__link body-medium">
-                          {item.itemName}
+        {inventoryList
+          .filter((item) => {
+            if (searchTerm === "") {
+              return item;
+            } else if (
+              item.warehouseName
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase()) ||
+              item.itemName
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase()) ||
+              item.category
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase()) ||
+              item.status
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase())
+            ){
+              return item;
+            }
+          })
+          .map((item) => {
+            return (
+              <div className="InventoryCard" key={item.id}>
+                <ul className="InventoryCard__content-list">
+                  <ul className="InventoryCard__sub-list InventoryCard__sub-list--margin1">
+                    <li className="InventoryCard__list-details InventoryCard__list-details--margin1">
+                      <h4 className="InventoryCard__list-title">
+                        Inventory Item
+                      </h4>
+                      <Link to={`/inventory/${item.id}`}>
+                        <div className="InventoryCard__link-item InventoryCard__link-item--margin">
+                          <div className="InventoryCard__link body-medium">
+                            {item.itemName}
+                          </div>
+                          <img
+                            src={chevron}
+                            alt="chevron linking to inventory item"
+                          />
                         </div>
-                        <img
-                          src={chevron}
-                          alt="chevron linking to inventory item"
-                        />
-                      </div>
-                    </Link>
-                  </li>
-                  <li className="InventoryCard__list-details InventoryCard__list-details--margin2">
-                    <h4 className="InventoryCard__list-title">Category</h4>
-                    <p className="InventoryCard__info body-medium">
-                      {item.category}
-                    </p>
-                  </li>
+                      </Link>
+                    </li>
+                    <li className="InventoryCard__list-details InventoryCard__list-details--margin2">
+                      <h4 className="InventoryCard__list-title">Category</h4>
+                      <p className="InventoryCard__info body-medium">
+                        {item.category}
+                      </p>
+                    </li>
+                  </ul>
+                  <ul className="InventoryCard__sub-list InventoryCard__sub-list--margin2">
+                    <li className="InventoryCard__list-details InventoryCard__list-details--margin3">
+                      <h4 className="InventoryCard__list-title">Status</h4>
+                      <p
+                        className={`InventoryCard__info body-medium ${statusStyle(
+                          item.quantity
+                        )}`}
+                      >
+                        {updateStatus(item.quantity)}
+                      </p>
+                    </li>
+                    <li className="InventoryCard__list-details InventoryCard__list-details--margin4">
+                      <h4 className="InventoryCard__list-title">Qty</h4>
+                      <p className="InventoryCard__info body-medium">
+                        {item.quantity}
+                      </p>
+                    </li>
+                    <li className="InventoryCard__list-details InventoryCard__list-details--margin4">
+                      <h4 className="InventoryCard__list-title">Warehouse</h4>
+                      <p className="InventoryCard__info body-medium">
+                        {item.warehouseName}
+                      </p>
+                    </li>
+                  </ul>
                 </ul>
-                <ul className="InventoryCard__sub-list InventoryCard__sub-list--margin2">
-                  <li className="InventoryCard__list-details InventoryCard__list-details--margin3">
-                    <h4 className="InventoryCard__list-title">Status</h4>
-                    <p
-                      className={`InventoryCard__info body-medium ${statusStyle(
-                        item.quantity
-                      )}`}
-                    >
-                      {updateStatus(item.quantity)}
-                    </p>
-                  </li>
-                  <li className="InventoryCard__list-details InventoryCard__list-details--margin4">
-                    <h4 className="InventoryCard__list-title">Qty</h4>
-                    <p className="InventoryCard__info body-medium">
-                      {item.quantity}
-                    </p>
-                  </li>
-                  <li className="InventoryCard__list-details InventoryCard__list-details--margin4">
-                    <h4 className="InventoryCard__list-title">Warehouse</h4>
-                    <p className="InventoryCard__info body-medium">
-                      {item.warehouseName}
-                    </p>
-                  </li>
-                </ul>
-              </ul>
-              <div className="InventoryCard__buttons">
-                <button
-                  onClick={() => {
-                    openModal(item.id);
-                  }}
-                  type="button"
-                  className="InventoryCard__button--delete"
-                ></button>
-                <Link to={`/inventory/edit/${item.id}`}>
-                  <div className="InventoryCard__button--edit"></div>
-                </Link>
+                <div className="InventoryCard__buttons">
+                  <button
+                    onClick={() => {
+                      openModal(item.id);
+                    }}
+                    type="button"
+                    className="InventoryCard__button--delete"
+                  ></button>
+                  <Link to={`/inventory/edit/${item.id}`}>
+                    <div className="InventoryCard__button--edit"></div>
+                  </Link>
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
       </div>
     </>
   );

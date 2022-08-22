@@ -4,11 +4,13 @@ import WarehouseList from "../../components/WarehouseComponents/WarehouseList/Wa
 import "./WarehousePage.scss";
 
 class WareHousePage extends React.Component {
+
   render() {
+    console.log(this.props)
     return (
       <div className="WarehouseList__background">
         <div className="WarehouseList__body">
-          <WarehouseList />
+          <WarehouseList searchTerm={this.props.searchTerm} handleOnChange={this.props.handleOnChange}/>
         </div>
       </div>
     );
