@@ -9,22 +9,16 @@ class HeaderSection extends React.Component {
     warehouseClass: "button__inventory--active",
   };
 
-  inventorySelected = (endpoint) => {
-    if (endpoint === "/inventory") {
-      return "nav__links--active";
+
+  componentDidMount() {
+    if(window.location.href=="http://localhost:3000/inventory"){
+      console.log("yes")
+      this.setState({inventoryClass:"button__inventory--active", warehouseClass:""})
     } else {
-      return "nav__links--tablet";
+      return
     }
-  };
-  warehouseSelected = (endpoint) => {
-    if (endpoint === "/warehouse") {
-      return "nav__links--active";
-    } else if (endpoint === "/") {
-      return "nav__links--active";
-    } else {
-      return "nav__links--tablet";
-    }
-  };
+  }
+
 
   activeInventoryPageHandler = () => {
     this.setState({
@@ -41,6 +35,7 @@ class HeaderSection extends React.Component {
   };
 
   render() {
+    console.log(typeof(window.location.href))
     return (
       <header>
         <nav className="nav">
