@@ -19,7 +19,7 @@ class InventoryItem extends Component {
         });
       })
       .catch((error) => {
-        console.log("Failed Task Successfully");
+        console.log("Failed Task Successfully", error);
       });
   }
 

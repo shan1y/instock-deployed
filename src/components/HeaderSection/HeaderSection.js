@@ -12,7 +12,6 @@ class HeaderSection extends React.Component {
 
   componentDidMount() {
     if(window.location.href=="https://instock-project.herokuapp.com/inventory"){
-      console.log("yes")
       this.setState({inventoryClass:"button__inventory--active", warehouseClass:""})
     } else {
       return
@@ -35,7 +34,6 @@ class HeaderSection extends React.Component {
   };
 
   render() {
-    console.log(typeof(window.location.href))
     return (
       <header>
         <nav className="nav">

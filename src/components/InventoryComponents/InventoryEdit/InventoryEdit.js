@@ -35,7 +35,7 @@ class InventoryEdit extends React.Component {
           });
       })
       .catch((error) => {
-        console.log("Request failed");
+        console.log("Request failed", error);
       });
   }
 
