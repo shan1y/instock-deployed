@@ -118,6 +118,7 @@ li {
   &__button--delete {
     background-color: transparent;
     border: none;
+    cursor: pointer;
     &::before {
       content: url("../../../assets/Icons/delete_outline-24px.svg");
     }

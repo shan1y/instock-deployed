@@ -72,8 +72,11 @@ class InventoryAdd extends React.Component {
           category: event.target.category.value,
           status: event.target.status.value,
           quantity: event.target.quantity.value,
+        }).then(()=>{
+          this.redirectHome();
         })
         .catch((error) => console.log(error));
+       
     }
   };
 
@@ -176,9 +179,7 @@ class InventoryAdd extends React.Component {
                             name="status"
                             className="new-item-form__radio-button"
                             value="In Stock"
-                            defaultChecked={
-                              this.state.inventoryStatus === "In Stock"
-                            }
+                            
                           />
                           <p className="new-item-form__radio-text">In Stock</p>
                         </div>
@@ -189,7 +190,7 @@ class InventoryAdd extends React.Component {
                             className="new-item-form__radio-button"
                             value="Out of Stock"
                             defaultChecked={
-                              this.state.inventoryStatus === "Out of Stock"
+                               "Out of Stock"
                             }
                           />
                           <p className="new-item-form__radio-text">

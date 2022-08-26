@@ -2,11 +2,8 @@ import "./WarehouseDetails.scss";
 import { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import chevron from "../../../assets/Icons/chevron_right-24px.svg";
 import backArrow from "../../../assets/Icons/arrow_back-24px.svg";
 import editHead from "../../../assets/Icons/edit_second-24px.svg";
-import edit from "../../../assets/Icons/edit-24px.svg";
-import DeleteModal from "../../DeleteModal/DeleteModal";
 import InventoryList from "../../InventoryComponents/InventoryList/InventoryList";
 
 class WarehouseDetails extends Component {
@@ -102,7 +99,7 @@ class WarehouseDetails extends Component {
               <div className="warehouse-details__container">
                 <div className="warehouse-details__header">
                   <div className="warehouse-details__wrapper">
-                    <Link className="warehouse-details__link" to="/warehouse">
+                    <Link className="warehouse-details__link" to="/">
                       <img
                         src={backArrow}
                         alt="Back Arrow to return to warehouse page"

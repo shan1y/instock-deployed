@@ -12,6 +12,7 @@ class WarehouseList extends React.Component {
     isOpen: false,
     activeWarehouseId: null,
     warehouseContact: null,
+    order: "ASC",
   };
 
   componentDidMount() {
@@ -25,6 +26,9 @@ class WarehouseList extends React.Component {
           warehouseList: warehouseData,
           warehouseContact: warehouseData.contact,
         });
+      })
+      .catch((error) => {
+        console.log("Request failed", error);
       });
   }
 
@@ -42,7 +46,58 @@ class WarehouseList extends React.Component {
       });
   };
 
-  
+  sorting = (col) => {
+    if (col === "[contact][email]") {
+      if (this.state.order === "ASC") {
+        const sorted = [...this.state.warehouseList].sort((a, b) => {
+          return a["contact"]["email"].toLowerCase() >
+            b["contact"]["email"].toLowerCase()
+            ? 1
+            : -1;
+        });
+        this.setState({ warehouseList: sorted, order: "DSC" });
+      }
+      if (this.state.order === "DSC") {
+        const sorted = [...this.state.warehouseList].sort((a, b) => {
+          return a["contact"]["email"].toLowerCase() <
+            b["contact"]["email"].toLowerCase()
+            ? 1
+            : -1;
+        });
+        this.setState({ warehouseList: sorted, order: "ASC" });
+      }
+    } 
+    else if (col === "[contact][name]") {
+      if (this.state.order === "ASC") {
+        const sorted = [...this.state.warehouseList].sort((a, b) => {
+          return a["contact"]["name"].toLowerCase() >
+            b["contact"]["name"].toLowerCase()
+            ? 1
+            : -1;
+        });
+        this.setState({ warehouseList: sorted, order: "DSC" });
+      }
+      if (this.state.order === "DSC") {
+        const sorted = [...this.state.warehouseList].sort((a, b) => {
+          return a["contact"]["name"].toLowerCase() <
+            b["contact"]["name"].toLowerCase()
+            ? 1
+            : -1;
+        });
+        this.setState({ warehouseList: sorted, order: "ASC" });
+      }
+    } else if (this.state.order === "ASC") {
+      const sorted = [...this.state.warehouseList].sort((a, b) => {
+        return a[col].toLowerCase() > b[col].toLowerCase() ? 1 : -1;
+      });
+      this.setState({ warehouseList: sorted, order: "DSC" });
+    } else if (this.state.order === "DSC") {
+      const sorted = [...this.state.warehouseList].sort((a, b) => {
+        return a[col].toLowerCase() < b[col].toLowerCase() ? 1 : -1;
+      });
+      this.setState({ warehouseList: sorted, order: "ASC" });
+    }
+  };
 
   render() {
     const activeWarehouseId = this.state.activeWarehouseId;
@@ -78,19 +133,39 @@ class WarehouseList extends React.Component {
 
         <ul className="sorter">
           <li className="sorter__item sorter__item--warehouse">
-            Warehouse <button className="sorter__button"></button>
+            Warehouse{" "}
+            <button
+              onClick={() => this.sorting("name")}
+              className="sorter__button"
+            ></button>
           </li>
           <li className="sorter__item sorter__item--address">
-            Address <button className="sorter__button"></button>
+            Address{" "}
+            <button
+              onClick={() => this.sorting("address")}
+              className="sorter__button"
+            ></button>
           </li>
           <li className="sorter__item sorter__item--contact-name">
-            Contact Name<button className="sorter__button"></button>
+            Contact Name
+            <button
+              onClick={() => this.sorting("[contact][name]")}
+              className="sorter__button"
+            ></button>
           </li>
           <li className="sorter__item sorter__item--contact">
-            Contact Information<button className="sorter__button"></button>
+            Contact Information
+            <button
+              onClick={() => this.sorting("[contact][email]")}
+              className="sorter__button"
+            ></button>
           </li>
           <li className="sorter__item">
-            Actions<button className="sorter__button"></button>
+            Actions
+            <button
+              onClick={() => this.sorting("[name]")}
+              className="sorter__button"
+            ></button>
           </li>
         </ul>
         {this.state.warehouseList

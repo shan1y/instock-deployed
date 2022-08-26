@@ -20,9 +20,7 @@ class WarehouseEdit extends Component {
     warehouseContact: null,
   };
 
-  // redirectHome = () => {
-  //   this.props.history.push("/warehouse");
-  // };
+
 
   componentDidMount() {
     axios

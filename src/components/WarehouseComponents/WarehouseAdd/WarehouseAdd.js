@@ -18,6 +18,8 @@ class WarehouseAdd extends Component {
     emailCheck: false,
   };
 
+
+
   redirectHome = () => {
     this.props.history.push("/");
   };
@@ -157,7 +159,7 @@ class WarehouseAdd extends Component {
       event.target.email.value
     ) {
       axios
-        .post("http://localhost:8080/warehouse", {
+        .post("https://instock-brainstation.herokuapp.com/warehouse", {
           warehouseName: event.target.warehouseName.value,
           address: event.target.address.value,
           city: event.target.city.value,
@@ -166,12 +168,13 @@ class WarehouseAdd extends Component {
           position: event.target.position.value,
           phone: event.target.phone.value,
           email: event.target.email.value,
+        }).then(()=>{
+          this.redirectHome()
         })
         .catch((error) => console.log(error));
-      this.props.history.push("/warehouse");
+     
     }
 
-    // CREATING POST REQUEST TO API
   };
 
   render() {

@@ -5,6 +5,7 @@ import "./WarehousePage.scss";
 
 class WareHousePage extends React.Component {
 
+
   render() {
     return (
       <div className="WarehouseList__background">

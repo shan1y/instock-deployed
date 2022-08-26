@@ -1,68 +1,66 @@
 import "./HeaderSection.scss";
 import InStockLogo from "../../assets/Logo/InStock-Logo.svg";
-import { Link, useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import React from "react";
 
 class HeaderSection extends React.Component {
   state = {
     inventoryClass: "",
-    warehouseClass: "button__inventory--active",
+    warehouseClass: "button__warehouse--active",
   };
 
-
-
-  //   if(window.location.href=="https://instock-project.herokuapp.com/inventory"){
-  //     this.setState({inventoryClass:"button__inventory--active", warehouseClass:""})
-  //   } else if(window.location.href="https://instock-project.herokuapp.com/"){
-  //     this.setState({inventoryClass:"", warehouseClass:"button__warehouse--active"})
-  //   } else {
-  //     return
-  // }
 
 
   activeInventoryPageHandler = () => {
     this.setState({
-      inventoryClass: "button__inventory--active",
-      warehouseClass: "",
-    });
-  };
+      inventoryClass : "button__inventory--active",
+      warehouseClass :""
+    })
+  }
 
   activeWarehousePageHandler = () => {
     this.setState({
-      inventoryClass: "",
-      warehouseClass: "button__warehouse--active",
-    });
-  };
+      inventoryClass : "",
+      warehouseClass :"button__warehouse--active"
+    })
+  }
 
   render() {
+
     return (
       <header>
         <nav className="nav">
-          <Link to="/" className="nav__logo-div">
+          <NavLink
+           onClick={this.activeWarehousePageHandler}
+            to="/"
+            className="nav__logo-div"
+            // activeClassName="nav__logo-div"
+          >
             <img
               className="nav__logo"
               src={InStockLogo}
               alt="InStock Logo"
             ></img>
-          </Link>
+          </NavLink>
           <div className="nav__directory">
-            <Link to="/" className="nav__links">
-              <button
-                onClick={this.activeWarehousePageHandler}
-                className={`button__warehouse ${this.state.warehouseClass} `}
-              >
-                {" "}
-                Warehouses
-              </button>
-            </Link>
-            <Link to="/inventory" className="nav__links ">
-              <button
-                onClick={this.activeInventoryPageHandler}
-                className={`button__inventory ${this.state.inventoryClass} `}
-              >
-                Inventory
-              </button>
-            </Link>
+            <NavLink
+              to="/warehouse"
+              exact
+              onClick={this.activeWarehousePageHandler}
+              // activeClassName=" button__warehouse--active"
+              className={`nav__links button__warehouse ${this.state.warehouseClass}`}
+            >
+              Warehouses
+            </NavLink>
+            <NavLink
+              to="/inventory"
+              exact
+              onClick={this.activeInventoryPageHandler}
+              className={`nav__links button__inventory ${this.state.inventoryClass}`}
+              // activeClassName="button__inventory button__inventory--active"
+            >
+              Inventory
+            </NavLink>
           </div>
         </nav>
       </header>

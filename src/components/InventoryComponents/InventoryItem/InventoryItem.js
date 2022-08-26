@@ -39,7 +39,7 @@ class InventoryItem extends Component {
         <div className="inventory-item__container">
           <div className="inventory-item__header">
             <div className="inventory-item__wrapper">
-              <Link className="inventory-item__link" to="/warehouse">
+              <Link className="inventory-item__link" to="/inventory">
                 <img
                   src={backArrow}
                   alt="Back Arrow to return to warehouse page"

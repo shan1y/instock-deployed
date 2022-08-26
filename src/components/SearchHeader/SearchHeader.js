@@ -1,7 +1,7 @@
 import "./SearchHeader.scss";
 import { Link } from "react-router-dom";
 
-function SearchHeader({ title, urlPath, item, handleOnChange }) {
+function SearchHeader({ title, urlPath, item, handleOnChange, searchTerm }) {
   return (
     <>
       <div className="search">
@@ -13,6 +13,7 @@ function SearchHeader({ title, urlPath, item, handleOnChange }) {
             className="form__input"
             placeholder="Search..."
             name="search"
+            value={searchTerm}
           ></input>
           <Link to={`${urlPath}`} className="form__button">
             {`+ Add New ${item}`}
