@@ -34,7 +34,6 @@ class HeaderSection extends React.Component {
            onClick={this.activeWarehousePageHandler}
             to="/"
             className="nav__logo-div"
-            // activeClassName="nav__logo-div"
           >
             <img
               className="nav__logo"
@@ -47,7 +46,6 @@ class HeaderSection extends React.Component {
               to="/warehouse"
               exact
               onClick={this.activeWarehousePageHandler}
-              // activeClassName=" button__warehouse--active"
               className={`nav__links button__warehouse ${this.state.warehouseClass}`}
             >
               Warehouses
@@ -57,7 +55,6 @@ class HeaderSection extends React.Component {
               exact
               onClick={this.activeInventoryPageHandler}
               className={`nav__links button__inventory ${this.state.inventoryClass}`}
-              // activeClassName="button__inventory button__inventory--active"
             >
               Inventory
             </NavLink>
