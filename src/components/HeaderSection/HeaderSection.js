@@ -1,6 +1,6 @@
 import "./HeaderSection.scss";
 import InStockLogo from "../../assets/Logo/InStock-Logo.svg";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import React from "react";
 
 class HeaderSection extends React.Component {

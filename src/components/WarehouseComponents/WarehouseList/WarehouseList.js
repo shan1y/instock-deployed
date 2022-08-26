@@ -199,7 +199,7 @@ class WarehouseList extends React.Component {
                 .includes(this.props.searchTerm.toLowerCase())
             ) {
               return warehouse;
-            }
+            } 
           })
           .map((warehouse) => {
             return (

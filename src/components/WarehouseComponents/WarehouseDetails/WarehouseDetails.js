@@ -80,11 +80,7 @@ class WarehouseDetails extends Component {
   render() {
     const { city, address, country, contact, id } = this.state.warehouseDetails;
     const { name, position, phone, email } = contact;
-
-    const activeInventoryId = this.state.activeInventoryId;
-    let modalData = this.state.warehouseInventory.find((inventory) => {
-      return activeInventoryId === inventory.id;
-    });
+   
     if (this.state.isOpen) {
       document.body.style.overflow = "hidden";
     } else {
