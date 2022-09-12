@@ -6,6 +6,6 @@ This repository is a fork of the front-end repository made with my team of three
 To see the back-end repository with more pull requests, please follow this link:
 [Click here to view the original back-end repository"](https://github.com/shan1y/instock-server)
 
-![delete modal](/src/assets/images/deletemodal.png?raw=true "Delete Modal for Warehouse")
+![delete modal](/src/assets/images/deletemodal.png?raw=true "Delete Modal for Warehouse"){:height:50%}
 ![warehouselist in mobile version](/src/assets/images/mobile.png?raw=true "Mobile Warehouse List")
 ![Warehouselist in desktop version](/src/assets/images/Screen%20Shot%202022-09-12%20at%2011.32.46%20AM.png?raw=true "Desktop Warehouselist")
