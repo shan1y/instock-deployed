@@ -136,7 +136,7 @@ class InventoryList extends React.Component {
             </ul>
             <div className="InventoryCard__buttons">
               <p className="InventoryFilter__text">Actions</p>
-              <button className="InventoryFilter__button"></button>
+              <p className="space">spe</p>
             </div>
           </div>
 

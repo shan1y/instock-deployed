@@ -163,10 +163,6 @@ class WarehouseList extends React.Component {
           </li>
           <li className="sorter__item">
             Actions
-            <button
-              onClick={() => this.sorting("[name]")}
-              className="sorter__button"
-            ></button>
           </li>
         </ul>
         {this.state.warehouseList
