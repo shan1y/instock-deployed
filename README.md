@@ -6,12 +6,11 @@ This repository is a fork of the front-end repository made with my team of three
 To see the back-end repository with more pull requests, please follow this link:
 [Click here to view the original back-end repository"](https://github.com/shan1y/instock-server)
 
-
 Desktop Warehouselist
 <img src="/src/assets/images/deletemodal.png"  width="100%">
 
 Mobile Warehouselist
-<img src="/src/assets/images/mobile.png"  width="30%">
+<img src="/src/assets/images/mobile.png"  width="60%">
 
 Delete Modal Example
 <img src="/src/assets/images/Screen%20Shot%202022-09-12%20at%2011.32.46%20AM.png" width="30%">
