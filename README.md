@@ -11,7 +11,7 @@ Desktop Warehouselist
 <img src="/src/assets/images/deletemodal.png"  width="100%">
 
 
-
+<img src="/src/assets/images/mobile.png"  width="50%">
 
 <!-- 
 ![warehouselist in mobile version](/src/assets/images/mobile.png?raw=true "Mobile Warehouse List"){height="50%"}
