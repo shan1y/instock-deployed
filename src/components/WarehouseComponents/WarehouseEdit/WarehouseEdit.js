@@ -20,7 +20,9 @@ class WarehouseEdit extends Component {
     warehouseContact: null,
   };
 
-
+  redirectHome = () => {
+    this.props.history.push("/warehouse");
+  };
 
   componentDidMount() {
     axios
@@ -186,9 +188,10 @@ class WarehouseEdit extends Component {
             phone: event.target.phone.value,
             email: event.target.email.value,
           }
-        )
+        ).then(()=>{
+          this.redirectHome();
+        })
         .catch((error) => console.log(error));
-      this.props.history.push("/warehouse");
     }
   };
 

@@ -15,6 +15,10 @@ class InventoryEdit extends React.Component {
     quantity: false,
   };
 
+  redirectHome = () => {
+    this.props.history.push("/inventory");
+  };
+
   componentDidMount() {
     axios
       .get(
@@ -90,9 +94,8 @@ class InventoryEdit extends React.Component {
             status: event.target.status.value,
             quantity: event.target.quantity.value,
           }
-        )
-        .catch((error) => console.log(error));
-      this.props.history.push("/inventory");
+        ).then(()=>{this.redirectHome();})
+        .catch((error) => console.log(error));      
     }
   };
 
