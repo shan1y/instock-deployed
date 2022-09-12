@@ -100,6 +100,7 @@ class WarehouseList extends React.Component {
   };
 
   render() {
+   // const {searchTerm, handleOnChange} = this.props
     const activeWarehouseId = this.state.activeWarehouseId;
     let modalData = this.state.warehouseList.find((warehouse) => {
       return activeWarehouseId === warehouse.id;
