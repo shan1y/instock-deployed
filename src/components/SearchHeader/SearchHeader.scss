@@ -50,6 +50,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    &:hover {
+      background-color: $header-colour;
+    }
     @include tablet {
       min-width: 8rem;
       padding: 0rem 1rem;
