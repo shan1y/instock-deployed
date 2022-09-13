@@ -19,6 +19,25 @@ class InventoryEdit extends React.Component {
     this.props.history.push("/inventory");
   };
 
+  handleStatusChange = (e) => {
+    if (e.target.value === "Out of Stock") {
+      this.setState({
+        inventoryStatus: e.target.value,
+        quantity:"0",
+        quantityCheck: false,
+      });
+    } else {
+      this.setState({ inventoryStatus: e.target.value });
+    }
+  };
+
+  handleQuantityChange = (e) => {
+    if(e.target.value === "0"){
+      this.setState({quantity:0, quantityCheck:true})
+    }
+    this.setState({ quantity: e.target.value, quantityCheck: false });
+  };
+
   componentDidMount() {
     axios
       .get(
@@ -62,13 +81,35 @@ class InventoryEdit extends React.Component {
     }
 
     if (
-      event.target.quantity.value.trim() === "" ||
-      !Number(event.target.quantity.value)
+      this.state.inventoryStatus === "Out of Stock" &&
+      !event.target.quantity
     ) {
-      this.setState({ quantityCheck: true });
+      this.setState({ quantity: 0, quantityCheck: false });
+    } else if (
+      this.state.inventoryStatus === "In Stock" &&
+      (event.target.quantity.value.trim() === "" ||
+        !Number(event.target.quantity.value) ||
+        Number(event.target.quantity.value) === 0)
+    ) {
+      this.setState({
+        quantity: event.target.quantity.value,
+        quantityCheck: true,
+      });
     } else {
-      this.setState({ quantityCheck: false });
+      this.setState({
+        quantity: event.target.quantity.value,
+        quantityCheck: false,
+      });
     }
+
+    // if (!event.target.quantity ||
+    //   event.target.quantity.value.trim() === "" ||
+    //   !Number(event.target.quantity.value) || Number(event.target.quantity.value) === 0
+    // ) {
+    //   this.setState({ quantityCheck: true });
+    // } else {
+    //   this.setState({ quantityCheck: false });
+    // }
 
     if (
       !this.state.itemNameCheck &&
@@ -77,7 +118,7 @@ class InventoryEdit extends React.Component {
       event.target.warehouse.value &&
       event.target.itemName.value &&
       event.target.description.value &&
-      event.target.quantity.value &&
+      this.state.quantity &&
       event.target.category.value
     ) {
       axios
@@ -92,10 +133,16 @@ class InventoryEdit extends React.Component {
             description: event.target.description.value,
             category: event.target.category.value,
             status: event.target.status.value,
-            quantity: event.target.quantity.value,
+            quantity: Number(this.state.quantity),
           }
-        ).then(()=>{this.redirectHome();})
-        .catch((error) => console.log(error));      
+        )
+        .then(() => {
+          console.log("put");
+          this.redirectHome();
+        })
+        .catch((error) => console.log(error));
+    } else {
+      console.log("error");
     }
   };
 
@@ -197,6 +244,7 @@ class InventoryEdit extends React.Component {
                         <div className="new-item-form__radio">
                           <div className="new-item-form__radio-container">
                             <input
+                              onChange={this.handleStatusChange}
                               type="radio"
                               name="status"
                               className="new-item-form__radio-button"
@@ -211,6 +259,7 @@ class InventoryEdit extends React.Component {
                           </div>
                           <div className="new-item-form__radio-container">
                             <input
+                              onChange={this.handleStatusChange}
                               type="radio"
                               name="status"
                               className="new-item-form__radio-button"
@@ -224,15 +273,23 @@ class InventoryEdit extends React.Component {
                             </p>
                           </div>
                         </div>
-
-                        <label className="new-item-form__label">Quantity</label>
-                        <input
-                          type="text"
-                          name="quantity"
-                          placeholder="0"
-                          className="new-item-form__input new-item-form__input--width"
-                          defaultValue={String(this.state.inventory.quantity)}
-                        />
+                        {this.state.inventoryStatus === "In Stock" && (
+                          <>
+                            <label className="new-item-form__label">
+                              Quantity
+                            </label>
+                            <input
+                              onChange={this.handleQuantityChange}
+                              type="text"
+                              name="quantity"
+                              placeholder="1"
+                              className="new-item-form__input new-item-form__input--width"
+                              defaultValue={String(
+                                this.state.inventory.quantity
+                              )}
+                            />
+                          </>
+                        )}
                         {this.state.quantityCheck && (
                           <div className="error">
                             <img
@@ -241,7 +298,7 @@ class InventoryEdit extends React.Component {
                               className="error__icon"
                             />
                             <p className="error__text">
-                              This field requires an integer
+                              This field requires an integer above 0
                             </p>
                           </div>
                         )}
