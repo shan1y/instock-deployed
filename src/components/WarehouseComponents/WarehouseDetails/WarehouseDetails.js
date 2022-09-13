@@ -120,9 +120,9 @@ class WarehouseDetails extends Component {
 
                 <div className="warehouse-info">
                   <div className="warehouse-info__container">
-                    <h4 className="warehouse-info__title">WAREHOUSE ADDRESS</h4>
+                    <h4 className="warehouse-info__title">WAREHOUSE ADDRESS:</h4>
                     <p className="warehouse-info__content">
-                      {address}, {city}, {country}
+                      {address} {city} {country}
                     </p>
                   </div>
                   <div className="warehouse-info__wrapper">
