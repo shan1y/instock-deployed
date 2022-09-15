@@ -194,7 +194,7 @@ class InventoryList extends React.Component {
                       <li className="InventoryCard__list-details InventoryCard__list-details--margin3">
                         <h4 className="InventoryCard__list-title">Status</h4>
                         <p
-                          className={`InventoryCard__info body-medium ${this.props.statusStyle(
+                          className={`InventoryCard__info  ${this.props.statusStyle(
                             item.quantity
                           )}`}
                         >

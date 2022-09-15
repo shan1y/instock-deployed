@@ -137,12 +137,9 @@ class InventoryEdit extends React.Component {
           }
         )
         .then(() => {
-          console.log("put");
           this.redirectHome();
         })
         .catch((error) => console.log(error));
-    } else {
-      console.log("error");
     }
   };
 

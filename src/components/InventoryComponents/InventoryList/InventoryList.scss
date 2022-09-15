@@ -285,7 +285,9 @@ li {
   border-radius: 20px;
   padding: 0.25rem 0.5rem;
   text-align: center;
-  font-weight: 600;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size:0.75rem;
   @include tablet {
     width: 65%;
   }
@@ -308,7 +310,9 @@ li {
   border-radius: 20px;
   padding: 0.25rem 0.5rem;
   text-align: center;
-  font-weight: 600;
+  font-weight: 400;
+  font-size:0.75rem;
+  text-transform: uppercase;
   @include tablet {
     width: 85%;
   }
