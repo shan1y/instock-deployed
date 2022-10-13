@@ -4,7 +4,7 @@ This repository is a fork of the front-end repository made with my team of three
 [Click here to view original front-end repsitory](https://github.com/shan1y/instock-client)
 
 To see the back-end repository with more pull requests, please follow this link:
-[Click here to view the original back-end repository"](https://github.com/shan1y/instock-server)
+[Click here to view the original back-end repository](https://github.com/shan1y/instock-server)
 
 Desktop Warehouselist <br>
 <img src="/src/assets/images/deletemodal.png"  width="100%">
