@@ -14,9 +14,9 @@ class InventoryList extends React.Component {
   };
 
   componentDidMount() {
-    if (
-      window.location.href === "https://instock-project.herokuapp.com/inventory"
-    ) {
+    const BASE_INV_URL = "https://instock-project.herokuapp.com/inventory";
+    //const BASE_INV_URL = "https://localhost:3000/inventory";
+    if (window.location.href === BASE_INV_URL) {
       axios
         .get("https://instock-brainstation.herokuapp.com/inventory")
         .then((response) => {
@@ -40,9 +40,9 @@ class InventoryList extends React.Component {
             inventory: response.data,
           });
         })
-
         .catch((error) => {
-          console.log("Request failed", error);
+          console.log(error);
+          this.setState({ inventory: [] });
         });
     }
   }

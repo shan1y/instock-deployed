@@ -44,6 +44,9 @@ class WarehouseDetails extends Component {
               warehouseDetails,
               warehouseInventory: response.data,
             });
+          })
+          .catch((error) => {
+            console.log(error);
           });
       });
   }
