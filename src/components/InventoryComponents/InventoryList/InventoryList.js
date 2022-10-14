@@ -1,37 +1,55 @@
 import "./InventoryList.scss";
 import chevron from "../../../assets/Icons/chevron_right-24px.svg";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import React from "react";
 import DeleteModal from "../../DeleteModal/DeleteModal";
-import axios from 'axios';
+import axios from "axios";
 
 class InventoryList extends React.Component {
-
-  state= {
-    isOpen:false,
-    order:"ASC",
-    inventory:[],
-    activeInventoryId:null
-  }
-
+  state = {
+    isOpen: false,
+    order: "ASC",
+    inventory: this.props.inventoryList || [],
+    activeInventoryId: this.props.activeInventoryId || null,
+  };
 
   componentDidMount() {
-    axios
-      .get("https://instock-brainstation.herokuapp.com/inventory")
-      .then((response) => {
-        this.setState({
-          inventory: response.data,
-        });
-      })
+    if (
+      window.location.href ===
+      "https://instock-project.heroku.app.com/inventory"
+    ) {
+      axios
+        .get("https://instock-brainstation.herokuapp.com/inventory")
+        .then((response) => {
+          this.setState({
+            inventory: response.data,
+          });
+        })
 
-      .catch((error) => {
-        console.log("Request failed", error);
-      });
+        .catch((error) => {
+          console.log("Request failed", error);
+        });
+    } else {
+      let currentLocation = window.location.href;
+      let currentId = currentId.slice(48, 84);
+      axios
+        .get(
+          `https://instock-brainstation.herokuapp.com/warehouse/${currentId}/inventory`
+        )
+        .then((response) => {
+          this.setState({
+            inventory: response.data,
+          });
+        })
+
+        .catch((error) => {
+          console.log("Request failed", error);
+        });
+    }
   }
 
   openModal = (id) => {
     this.setState({ isOpen: true, activeInventoryId: id });
-    // window.scrollTo(0, 0);
   };
 
   closeModal = () => this.setState({ isOpen: false });
@@ -44,43 +62,38 @@ class InventoryList extends React.Component {
       });
   };
 
-  
-
-    sorting = (col) => {
-      if(col ==="quantity"){
-        if (this.state.order === "ASC") {
-          const sorted = [...this.state.inventory].sort((a, b) => {
-            console.log(a[col])
-           return a[col] > b[col] ? 1 : -1;
-          });
-          this.setState({ inventory:sorted, order: "DSC" });
-        }
-    
-        if(this.state.order ==="DSC"){
-          const sorted = [...this.state.inventory].sort((a,b)=>{
-           return a[col] < b[col]? 1: -1
-          });
-          this.setState( {inventory:sorted , order:"ASC"})
-        }
-      }
-      else if (this.state.order === "ASC") {
+  sorting = (col) => {
+    if (col === "quantity") {
+      if (this.state.order === "ASC") {
         const sorted = [...this.state.inventory].sort((a, b) => {
-         return a[col].toLowerCase() > b[col].toLowerCase() ? 1 : -1;
+          console.log(a[col]);
+          return a[col] > b[col] ? 1 : -1;
         });
-        this.setState({ inventory:sorted, order: "DSC" });
+        this.setState({ inventory: sorted, order: "DSC" });
       }
-  
-      else if(this.state.order ==="DSC"){
-        const sorted = [...this.state.inventory].sort((a,b)=>{
-         return a[col].toLowerCase() < b[col].toLowerCase() ? 1: -1
+
+      if (this.state.order === "DSC") {
+        const sorted = [...this.state.inventory].sort((a, b) => {
+          return a[col] < b[col] ? 1 : -1;
         });
-        this.setState( {inventory:sorted , order:"ASC"})
+        this.setState({ inventory: sorted, order: "ASC" });
       }
-    };
+    } else if (this.state.order === "ASC") {
+      const sorted = [...this.state.inventory].sort((a, b) => {
+        return a[col].toLowerCase() > b[col].toLowerCase() ? 1 : -1;
+      });
+      this.setState({ inventory: sorted, order: "DSC" });
+    } else if (this.state.order === "DSC") {
+      const sorted = [...this.state.inventory].sort((a, b) => {
+        return a[col].toLowerCase() < b[col].toLowerCase() ? 1 : -1;
+      });
+      this.setState({ inventory: sorted, order: "ASC" });
+    }
+  };
 
   render() {
-    const activeInventoryId = this.state.activeInventoryId
-   let modalData = this.state.inventory.find((item) => {
+    const activeInventoryId = this.state.activeInventoryId;
+    let modalData = this.state.inventory.find((item) => {
       return activeInventoryId === item.id;
     });
     if (this.state.isOpen) {
@@ -91,7 +104,7 @@ class InventoryList extends React.Component {
 
     return (
       <>
-        {this.state.isOpen && this.state.activeInventoryId &&(
+        {this.state.isOpen && this.state.activeInventoryId && (
           <DeleteModal
             title={`Delete ${modalData.itemName} inventory item?`}
             paragraph={`Please confirm that you'd like to delete ${modalData.itemName} from the inventory list. You won't be able to undo this action.`}
@@ -109,12 +122,18 @@ class InventoryList extends React.Component {
                 <li className="InventoryFilter__list-details InventoryFilter__list-details--margin1">
                   <div className="InventoryFilter__text-item InventoryFilter__text-item--margin">
                     <div className="InventoryFilter__text">Inventory Item</div>
-                    <button onClick={() => this.sorting("itemName")} className="InventoryFilter__button"></button>
+                    <button
+                      onClick={() => this.sorting("itemName")}
+                      className="InventoryFilter__button"
+                    ></button>
                   </div>
                 </li>
                 <li className="InventoryFilter__list-details InventoryFilter__list-details--margin2">
                   <p className="InventoryFilter__text">Category</p>
-                  <button onClick={() => this.sorting("category")} className="InventoryFilter__button"></button>
+                  <button
+                    onClick={() => this.sorting("category")}
+                    className="InventoryFilter__button"
+                  ></button>
                 </li>
               </ul>
               <ul className="InventoryFilter__sub-list InventoryFilter__sub-list--margin2">
@@ -122,15 +141,24 @@ class InventoryList extends React.Component {
                   <p className="InventoryFilter__text InventoryFilter__text--margin">
                     Status
                   </p>
-                  <button onClick={() => this.sorting("status")} className="InventoryFilter__button"></button>
+                  <button
+                    onClick={() => this.sorting("status")}
+                    className="InventoryFilter__button"
+                  ></button>
                 </li>
                 <li className="InventoryFilter__list-details InventoryCard__list-details--margin4">
                   <p className="InventoryFilter__text">Qty</p>
-                  <button  onClick={() => this.sorting("quantity")} className="InventoryFilter__button"></button>
+                  <button
+                    onClick={() => this.sorting("quantity")}
+                    className="InventoryFilter__button"
+                  ></button>
                 </li>
                 <li className="InventoryFilter__list-details InventoryFilter__list-details--margin4">
                   <p className="InventoryFilter__text">Warehouse</p>
-                  <button onClick={() => this.sorting("warehouseName")} className="InventoryFilter__button"></button>
+                  <button
+                    onClick={() => this.sorting("warehouseName")}
+                    className="InventoryFilter__button"
+                  ></button>
                 </li>
               </ul>
             </ul>
@@ -157,7 +185,9 @@ class InventoryList extends React.Component {
                 item.category
                   .toLowerCase()
                   .includes(this.props.searchTerm.toLowerCase()) ||
-                item.status.toLowerCase().includes(this.props.searchTerm.toLowerCase())
+                item.status
+                  .toLowerCase()
+                  .includes(this.props.searchTerm.toLowerCase())
               ) {
                 return item;
               }

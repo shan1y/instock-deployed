@@ -80,7 +80,6 @@ class WarehouseDetails extends Component {
   render() {
     const { city, address, country, contact, id } = this.state.warehouseDetails;
     const { name, position, phone, email } = contact;
-   
     if (this.state.isOpen) {
       document.body.style.overflow = "hidden";
     } else {
@@ -120,7 +119,9 @@ class WarehouseDetails extends Component {
 
                 <div className="warehouse-info">
                   <div className="warehouse-info__container">
-                    <h4 className="warehouse-info__title">WAREHOUSE ADDRESS:</h4>
+                    <h4 className="warehouse-info__title">
+                      WAREHOUSE ADDRESS:
+                    </h4>
                     <p className="warehouse-info__content">
                       {address} {city} {country}
                     </p>
@@ -141,16 +142,18 @@ class WarehouseDetails extends Component {
                   </div>
                 </div>
 
-                <InventoryList
-                  updateStatus={this.statusToggle}
-                  statusStyle={this.statusStyleToggle}
-                  isOpen={this.state.isOpen}
-                  openModal={this.openModal}
-                  closeModal={this.closeModal}
-                  deleteItem={this.deleteItem}
-                  activeInventoryId={this.state.activeInventoryId}
-                  inventoryList={this.state.warehouseInventory}
-                />
+                {this.state.warehouseInventory === [] ? null : (
+                  <InventoryList
+                    updateStatus={this.statusToggle}
+                    statusStyle={this.statusStyleToggle}
+                    isOpen={this.state.isOpen}
+                    openModal={this.openModal}
+                    closeModal={this.closeModal}
+                    deleteItem={this.deleteItem}
+                    activeInventoryId={this.state.activeInventoryId}
+                    inventoryList={this.state.warehouseInventory}
+                  />
+                )}
               </div>
             </div>
           </>
