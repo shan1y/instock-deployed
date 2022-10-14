@@ -81,7 +81,6 @@ class WarehouseDetails extends Component {
   };
 
   render() {
-    console.log(this.state.warehouseDetails);
     const { city, address, country, contact, id } = this.state.warehouseDetails;
     const { name, position, phone, email } = contact;
     if (this.state.isOpen) {

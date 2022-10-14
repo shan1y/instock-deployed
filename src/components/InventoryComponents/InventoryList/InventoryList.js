@@ -65,7 +65,6 @@ class InventoryList extends React.Component {
     if (col === "quantity") {
       if (this.state.order === "ASC") {
         const sorted = [...this.state.inventory].sort((a, b) => {
-          console.log(a[col]);
           return a[col] > b[col] ? 1 : -1;
         });
         this.setState({ inventory: sorted, order: "DSC" });
