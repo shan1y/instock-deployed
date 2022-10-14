@@ -15,8 +15,7 @@ class InventoryList extends React.Component {
 
   componentDidMount() {
     if (
-      window.location.href ===
-      "https://instock-project.heroku.app.com/inventory"
+      window.location.href === "https://instock-project.herokuapp.com/inventory"
     ) {
       axios
         .get("https://instock-brainstation.herokuapp.com/inventory")
