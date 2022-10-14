@@ -31,7 +31,7 @@ class InventoryList extends React.Component {
         });
     } else {
       let currentLocation = window.location.href;
-      let currentId = currentId.slice(48, 84);
+      let currentId = currentLocation.slice(48, 84);
       axios
         .get(
           `https://instock-brainstation.herokuapp.com/warehouse/${currentId}/inventory`
