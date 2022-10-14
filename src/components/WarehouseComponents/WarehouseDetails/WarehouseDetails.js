@@ -32,6 +32,7 @@ class WarehouseDetails extends Component {
         `https://instock-brainstation.herokuapp.com/warehouse/${this.props.match.params.id}`
       )
       .then((warehouseDetails) => {
+        this.setState({ warehouseDetails: warehouseDetails.data });
         return warehouseDetails.data;
       })
       .then((warehouseDetails) => {
@@ -41,7 +42,6 @@ class WarehouseDetails extends Component {
           )
           .then((response) => {
             this.setState({
-              warehouseDetails,
               warehouseInventory: response.data,
             });
           })
@@ -81,6 +81,7 @@ class WarehouseDetails extends Component {
   };
 
   render() {
+    console.log(this.state.warehouseDetails);
     const { city, address, country, contact, id } = this.state.warehouseDetails;
     const { name, position, phone, email } = contact;
     if (this.state.isOpen) {
