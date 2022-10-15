@@ -33,7 +33,7 @@ Go to the project directory
 Install dependencies
 
 ```bash
-  npm install i
+  npm i
 ```
 To start this project run
 
