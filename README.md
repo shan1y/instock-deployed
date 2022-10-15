@@ -6,6 +6,8 @@ This repository is a fork of the front-end repository made with my team of three
 To see the back-end repository with more pull requests, please follow this link:
 [Click here to view the original back-end repository](https://github.com/shan1y/instock-server)
 
+## :camera: Screenshots
+
 Desktop Warehouselist <br>
 <img src="/src/assets/images/deletemodal.png"  width="100%">
 
