@@ -14,4 +14,29 @@ Mobile Warehouselist <br>
 
 Delete Modal Example <br>
 <img src="/src/assets/images/Screen%20Shot%202022-09-12%20at%2011.32.46%20AM.png" width="70%">
+<!-- Run Locally -->
 
+### :running: Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/shan1y/instock-deployed.git
+```
+
+Go to the project directory
+
+```bash
+  cd instock-deployed
+```
+
+Install dependencies
+
+```bash
+  npm install i
+```
+To start this project run
+
+```bash
+  npm start
+```
