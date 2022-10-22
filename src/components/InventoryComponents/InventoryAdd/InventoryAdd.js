@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import backArrow from "../../../assets/Icons/arrow_back-24px.svg";
 import errorIcon from "../../../assets/Icons/error-24px.svg";
 import axios from "axios";
-import url from "../../utils";
+import url from "../../utils/utils";
 
 class InventoryAdd extends React.Component {
   state = {

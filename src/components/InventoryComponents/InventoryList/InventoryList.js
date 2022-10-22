@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import React from "react";
 import DeleteModal from "../../DeleteModal/DeleteModal";
 import axios from "axios";
-import url from "../../utils/utils";
+import url from "../../utils/utils.js";
 
 class InventoryList extends React.Component {
   state = {
@@ -163,6 +163,7 @@ class InventoryList extends React.Component {
           </div>
 
           {this.state.inventory
+            // eslint-disable-next-line
             .filter((item) => {
               if (
                 this.props.searchTerm === "" ||

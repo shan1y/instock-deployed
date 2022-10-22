@@ -2,7 +2,7 @@ import { Component } from "react";
 import "./InventoryItem.scss";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import url from "../../utils/utils";
+import url from "../../utils/utils.js";
 import backArrow from "../../../assets/Icons/arrow_back-24px.svg";
 import editHead from "../../../assets/Icons/edit_second-24px.svg";
 
