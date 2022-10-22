@@ -1,7 +1,7 @@
 import "./WarehouseEdit.scss";
 import { Component } from "react";
 import { Link } from "react-router-dom";
-
+import url from "../../utils/utils.js";
 import backArrow from "../../../assets/Icons/arrow_back-24px.svg";
 import errorIcon from "../../../assets/Icons/error-24px.svg";
 import axios from "axios";
@@ -26,9 +26,7 @@ class WarehouseEdit extends Component {
 
   componentDidMount() {
     axios
-      .get(
-        `https://instock-brainstation.herokuapp.com/warehouse/${this.props.match.params.id}`
-      )
+      .get(`${url}warehouse/${this.props.match.params.id}`)
       .then((response) => {
         return response.data;
       })
@@ -175,20 +173,18 @@ class WarehouseEdit extends Component {
       event.target.email.value
     ) {
       axios
-        .put(
-          `https://instock-brainstation.herokuapp.com/warehouse/${this.props.match.params.id}/edit`,
-          {
-            id: this.props.match.params.id,
-            warehouseName: event.target.warehouseName.value,
-            address: event.target.address.value,
-            city: event.target.city.value,
-            country: event.target.country.value,
-            contactName: event.target.contactName.value,
-            position: event.target.position.value,
-            phone: event.target.phone.value,
-            email: event.target.email.value,
-          }
-        ).then(()=>{
+        .put(`${url}warehouse/${this.props.match.params.id}/edit`, {
+          id: this.props.match.params.id,
+          warehouseName: event.target.warehouseName.value,
+          address: event.target.address.value,
+          city: event.target.city.value,
+          country: event.target.country.value,
+          contactName: event.target.contactName.value,
+          position: event.target.position.value,
+          phone: event.target.phone.value,
+          email: event.target.email.value,
+        })
+        .then(() => {
           this.redirectHome();
         })
         .catch((error) => console.log(error));

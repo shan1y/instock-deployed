@@ -2,7 +2,7 @@ import { Component } from "react";
 import "./InventoryItem.scss";
 import { Link } from "react-router-dom";
 import axios from "axios";
-
+import url from "../../utils/utils";
 import backArrow from "../../../assets/Icons/arrow_back-24px.svg";
 import editHead from "../../../assets/Icons/edit_second-24px.svg";
 
@@ -24,9 +24,7 @@ class InventoryItem extends Component {
   }
 
   getInventoryItem = (inventoryId) =>
-    axios.get(
-      `https://instock-brainstation.herokuapp.com/inventory/${inventoryId}`
-    );
+    axios.get(`${url}inventory/${inventoryId}`);
 
   stockCheck = (stock) => (stock === 0 ? "OUT OF STOCK" : "IN STOCK");
 

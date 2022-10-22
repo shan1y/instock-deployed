@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import backArrow from "../../../assets/Icons/arrow_back-24px.svg";
 import errorIcon from "../../../assets/Icons/error-24px.svg";
 import axios from "axios";
+import url from "../../utils";
 
 class InventoryAdd extends React.Component {
   state = {
@@ -20,7 +21,7 @@ class InventoryAdd extends React.Component {
 
   componentDidMount() {
     axios
-      .get("https://instock-brainstation.herokuapp.com/warehouse")
+      .get(`${url}warehouse`)
       .then((response) => {
         this.setState({
           warehouses: response.data,
@@ -65,18 +66,18 @@ class InventoryAdd extends React.Component {
       event.target.quantity.value
     ) {
       axios
-        .post("https://instock-brainstation.herokuapp.com/inventory", {
+        .post(`${url}inventory`, {
           warehouseID: event.target.warehouseID.value,
           itemName: event.target.itemName.value,
           description: event.target.description.value,
           category: event.target.category.value,
           status: event.target.status.value,
           quantity: event.target.quantity.value,
-        }).then(()=>{
+        })
+        .then(() => {
           this.redirectHome();
         })
         .catch((error) => console.log(error));
-       
     }
   };
 
@@ -87,7 +88,6 @@ class InventoryAdd extends React.Component {
           <section className="new-item">
             <div className="new-item__container">
               <div className="new-item__header">
-                {/* CHANGE PATH */}
                 <Link className="new-item__link" to="/inventory">
                   <img
                     src={backArrow}
@@ -179,7 +179,6 @@ class InventoryAdd extends React.Component {
                             name="status"
                             className="new-item-form__radio-button"
                             value="In Stock"
-                            
                           />
                           <p className="new-item-form__radio-text">In Stock</p>
                         </div>
@@ -189,9 +188,7 @@ class InventoryAdd extends React.Component {
                             name="status"
                             className="new-item-form__radio-button"
                             value="Out of Stock"
-                            defaultChecked={
-                               "Out of Stock"
-                            }
+                            defaultChecked={"Out of Stock"}
                           />
                           <p className="new-item-form__radio-text">
                             Out of Stock

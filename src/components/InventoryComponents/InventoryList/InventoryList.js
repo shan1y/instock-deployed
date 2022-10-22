@@ -1,9 +1,10 @@
 import "./InventoryList.scss";
 import chevron from "../../../assets/Icons/chevron_right-24px.svg";
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import React from "react";
 import DeleteModal from "../../DeleteModal/DeleteModal";
 import axios from "axios";
+import url from "../../utils/utils";
 
 class InventoryList extends React.Component {
   state = {
@@ -14,11 +15,10 @@ class InventoryList extends React.Component {
   };
 
   componentDidMount() {
-    const BASE_INV_URL = "https://instock-project.herokuapp.com/inventory";
-    //const BASE_INV_URL = "https://localhost:3000/inventory";
+    const BASE_INV_URL = `${url}inventory`;
     if (window.location.href === BASE_INV_URL) {
       axios
-        .get("https://instock-brainstation.herokuapp.com/inventory")
+        .get(`${url}inventory`)
         .then((response) => {
           this.setState({
             inventory: response.data,
@@ -32,9 +32,7 @@ class InventoryList extends React.Component {
       let currentLocation = window.location.href;
       let currentId = currentLocation.slice(48, 84);
       axios
-        .get(
-          `https://instock-brainstation.herokuapp.com/warehouse/${currentId}/inventory`
-        )
+        .get(`${url}warehouse/${currentId}/inventory`)
         .then((response) => {
           this.setState({
             inventory: response.data,
@@ -54,11 +52,9 @@ class InventoryList extends React.Component {
   closeModal = () => this.setState({ isOpen: false });
 
   deleteItem = (id) => {
-    axios
-      .delete(`https://instock-brainstation.herokuapp.com/inventory/${id}`)
-      .then((response) => {
-        this.setState({ inventory: response.data, isOpen: false });
-      });
+    axios.delete(`${url}inventory/${id}`).then((response) => {
+      this.setState({ inventory: response.data, isOpen: false });
+    });
   };
 
   sorting = (col) => {

@@ -1,7 +1,7 @@
 import "./WarehouseAdd.scss";
 import { Component } from "react";
 import { Link } from "react-router-dom";
-
+import url from "../../utils/utils";
 import backArrow from "../../../assets/Icons/arrow_back-24px.svg";
 import errorIcon from "../../../assets/Icons/error-24px.svg";
 import axios from "axios";
@@ -17,8 +17,6 @@ class WarehouseAdd extends Component {
     numberCheck: false,
     emailCheck: false,
   };
-
-
 
   redirectHome = () => {
     this.props.history.push("/");
@@ -159,7 +157,7 @@ class WarehouseAdd extends Component {
       event.target.email.value
     ) {
       axios
-        .post("https://instock-brainstation.herokuapp.com/warehouse", {
+        .post(`${url}warehouse`, {
           warehouseName: event.target.warehouseName.value,
           address: event.target.address.value,
           city: event.target.city.value,
@@ -168,13 +166,12 @@ class WarehouseAdd extends Component {
           position: event.target.position.value,
           phone: event.target.phone.value,
           email: event.target.email.value,
-        }).then(()=>{
-          this.redirectHome()
+        })
+        .then(() => {
+          this.redirectHome();
         })
         .catch((error) => console.log(error));
-     
     }
-
   };
 
   render() {

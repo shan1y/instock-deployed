@@ -9,29 +9,26 @@ class HeaderSection extends React.Component {
     warehouseClass: "button__warehouse--active",
   };
 
-
-
   activeInventoryPageHandler = () => {
     this.setState({
-      inventoryClass : "button__inventory--active",
-      warehouseClass :""
-    })
-  }
+      inventoryClass: "button__inventory--active",
+      warehouseClass: "",
+    });
+  };
 
   activeWarehousePageHandler = () => {
     this.setState({
-      inventoryClass : "",
-      warehouseClass :"button__warehouse--active"
-    })
-  }
+      inventoryClass: "",
+      warehouseClass: "button__warehouse--active",
+    });
+  };
 
   render() {
-
     return (
       <header>
         <nav className="nav">
           <NavLink
-           onClick={this.activeWarehousePageHandler}
+            onClick={this.activeWarehousePageHandler}
             to="/"
             className="nav__logo-div"
           >

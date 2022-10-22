@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import backArrow from "../../../assets/Icons/arrow_back-24px.svg";
 import editHead from "../../../assets/Icons/edit_second-24px.svg";
 import InventoryList from "../../InventoryComponents/InventoryList/InventoryList";
+import url from "../../utils/utils";
 
 class WarehouseDetails extends Component {
   state = {
@@ -28,18 +29,14 @@ class WarehouseDetails extends Component {
 
   componentDidMount() {
     axios
-      .get(
-        `https://instock-brainstation.herokuapp.com/warehouse/${this.props.match.params.id}`
-      )
+      .get(`${url}warehouse/${this.props.match.params.id}`)
       .then((warehouseDetails) => {
         this.setState({ warehouseDetails: warehouseDetails.data });
         return warehouseDetails.data;
       })
       .then((warehouseDetails) => {
         return axios
-          .get(
-            `https://instock-brainstation.herokuapp.com/warehouse/${this.props.match.params.id}/inventory`
-          )
+          .get(`${url}warehouse/${this.props.match.params.id}/inventory`)
           .then((response) => {
             this.setState({
               warehouseInventory: response.data,
@@ -66,12 +63,10 @@ class WarehouseDetails extends Component {
   closeModal = () => this.setState({ isOpen: false });
 
   deleteItem = (id) => {
-    axios.delete(`https://instock-brainstation.herokuapp.com/inventory/${id}`);
+    axios.delete(`${url}inventory/${id}`);
 
     axios
-      .get(
-        `https://instock-brainstation.herokuapp.com/warehouse/${this.props.match.params.id}/inventory`
-      )
+      .get(`${url}warehouse/${this.props.match.params.id}/inventory`)
       .then((response) => {
         this.setState({
           warehouseInventory: response.data,

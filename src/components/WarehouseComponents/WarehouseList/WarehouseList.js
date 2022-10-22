@@ -5,6 +5,7 @@ import DeleteModal from "../../DeleteModal/DeleteModal";
 import axios from "axios";
 import SearchHeader from "../../SearchHeader/SearchHeader";
 import { Link } from "react-router-dom";
+import url from "../../utils/utils";
 
 class WarehouseList extends React.Component {
   state = {
@@ -17,7 +18,7 @@ class WarehouseList extends React.Component {
 
   componentDidMount() {
     axios
-      .get("https://instock-brainstation.herokuapp.com/warehouse")
+      .get(`${url}warehouse`)
       .then((response) => {
         return response.data;
       })
@@ -39,11 +40,9 @@ class WarehouseList extends React.Component {
   closeModal = () => this.setState({ isOpen: false });
 
   deleteItem = (id) => {
-    axios
-      .delete(`https://instock-brainstation.herokuapp.com/warehouse/${id}`)
-      .then((response) => {
-        this.setState({ warehouseList: response.data, isOpen: false });
-      });
+    axios.delete(`${url}warehouse/${id}`).then((response) => {
+      this.setState({ warehouseList: response.data, isOpen: false });
+    });
   };
 
   sorting = (col) => {
@@ -66,8 +65,7 @@ class WarehouseList extends React.Component {
         });
         this.setState({ warehouseList: sorted, order: "ASC" });
       }
-    } 
-    else if (col === "[contact][name]") {
+    } else if (col === "[contact][name]") {
       if (this.state.order === "ASC") {
         const sorted = [...this.state.warehouseList].sort((a, b) => {
           return a["contact"]["name"].toLowerCase() >
@@ -100,7 +98,6 @@ class WarehouseList extends React.Component {
   };
 
   render() {
-   // const {searchTerm, handleOnChange} = this.props
     const activeWarehouseId = this.state.activeWarehouseId;
     let modalData = this.state.warehouseList.find((warehouse) => {
       return activeWarehouseId === warehouse.id;
@@ -161,9 +158,7 @@ class WarehouseList extends React.Component {
               className="sorter__button"
             ></button>
           </li>
-          <li className="sorter__item">
-            Actions
-          </li>
+          <li className="sorter__item">Actions</li>
         </ul>
         {this.state.warehouseList
           .filter((warehouse) => {
@@ -196,7 +191,7 @@ class WarehouseList extends React.Component {
                 .includes(this.props.searchTerm.toLowerCase())
             ) {
               return warehouse;
-            } 
+            }
           })
           .map((warehouse) => {
             return (

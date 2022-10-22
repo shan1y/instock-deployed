@@ -4,8 +4,6 @@ import InventoryList from "../../components/InventoryComponents/InventoryList/In
 import SearchHeader from "../../components/SearchHeader/SearchHeader";
 
 class InventoryPage extends React.Component {
-
-
   // Toggle status function
   statusToggle = (qty) => {
     if (qty === 0) {
@@ -23,19 +21,7 @@ class InventoryPage extends React.Component {
     }
   };
 
-  
-
-
-
-
-  
-
   render() {
-  //   if (this.state.isOpen) {
-  //     document.body.style.overflow = "hidden";
-  //   } else {
-  //     document.body.style.overflow = "unset";
-  //   }
     return (
       <div className="InventoryList__body">
         <SearchHeader
@@ -46,7 +32,7 @@ class InventoryPage extends React.Component {
           searchTerm={this.props.searchTerm}
         />
         <InventoryList
-        searchTerm={this.props.searchTerm}
+          searchTerm={this.props.searchTerm}
           updateStatus={this.statusToggle}
           statusStyle={this.statusStyleToggle}
           openModal={this.openModal}

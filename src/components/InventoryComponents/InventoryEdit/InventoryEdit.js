@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import backArrow from "../../../assets/Icons/arrow_back-24px.svg";
 import errorIcon from "../../../assets/Icons/error-24px.svg";
 import axios from "axios";
+import url from "../../utils/utils.js";
 
 class InventoryEdit extends React.Component {
   state = {
@@ -23,7 +24,7 @@ class InventoryEdit extends React.Component {
     if (e.target.value === "Out of Stock") {
       this.setState({
         inventoryStatus: e.target.value,
-        quantity:"0",
+        quantity: "0",
         quantityCheck: false,
       });
     } else {
@@ -32,30 +33,26 @@ class InventoryEdit extends React.Component {
   };
 
   handleQuantityChange = (e) => {
-    if(e.target.value === "0"){
-      this.setState({quantity:0, quantityCheck:true})
+    if (e.target.value === "0") {
+      this.setState({ quantity: 0, quantityCheck: true });
     }
     this.setState({ quantity: e.target.value, quantityCheck: false });
   };
 
   componentDidMount() {
     axios
-      .get(
-        `https://instock-brainstation.herokuapp.com/inventory/${this.props.match.params.id}`
-      )
+      .get(`url${this.props.match.params.id}`)
       .then((response) => {
         return response.data;
       })
       .then((inventoryData) => {
-        return axios
-          .get("https://instock-brainstation.herokuapp.com/warehouse")
-          .then((response) => {
-            this.setState({
-              inventory: inventoryData,
-              warehouseList: response.data,
-              inventoryStatus: inventoryData.status,
-            });
+        return axios.get(`${url}warehouse`).then((response) => {
+          this.setState({
+            inventory: inventoryData,
+            warehouseList: response.data,
+            inventoryStatus: inventoryData.status,
           });
+        });
       })
       .catch((error) => {
         console.log("Request failed", error);
@@ -102,15 +99,6 @@ class InventoryEdit extends React.Component {
       });
     }
 
-    // if (!event.target.quantity ||
-    //   event.target.quantity.value.trim() === "" ||
-    //   !Number(event.target.quantity.value) || Number(event.target.quantity.value) === 0
-    // ) {
-    //   this.setState({ quantityCheck: true });
-    // } else {
-    //   this.setState({ quantityCheck: false });
-    // }
-
     if (
       !this.state.itemNameCheck &&
       !this.state.descriptionCheck &&
@@ -123,7 +111,7 @@ class InventoryEdit extends React.Component {
     ) {
       axios
         .put(
-          `https://instock-brainstation.herokuapp.com/inventory/${this.props.match.params.id}/edit`,
+          `${url}inventory/${this.props.match.params.id}/edit`,
 
           {
             id: this.props.match.params.id,
