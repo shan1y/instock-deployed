@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import backArrow from "../../../assets/Icons/arrow_back-24px.svg";
 import errorIcon from "../../../assets/Icons/error-24px.svg";
 import axios from "axios";
-import url from "../../utils/utils.js";
+import url from "../../utils/utils";
 
 class InventoryEdit extends React.Component {
   state = {
@@ -41,7 +41,7 @@ class InventoryEdit extends React.Component {
 
   componentDidMount() {
     axios
-      .get(`url${this.props.match.params.id}`)
+      .get(`${url}inventory/${this.props.match.params.id}`)
       .then((response) => {
         return response.data;
       })
