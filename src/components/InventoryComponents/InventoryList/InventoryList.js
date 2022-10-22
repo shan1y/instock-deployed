@@ -16,7 +16,7 @@ class InventoryList extends React.Component {
 
   componentDidMount() {
     const BASE_INV_URL = "https://instock-project.netlify.app/inventory";
-    // const BASE_INV_URL = "http://localhost:3000/inventory";
+    //const BASE_INV_URL = "http://localhost:3000/inventory";
     if (window.location.href === BASE_INV_URL) {
       axios
         .get(`${url}inventory`)
@@ -32,7 +32,7 @@ class InventoryList extends React.Component {
     } else {
       let currentLocation = window.location.href;
       let currentId = currentLocation.slice(46, 82);
-      // let currentId = currentLocation.slice(32, 68);
+      //let currentId = currentLocation.slice(32, 68);
 
       axios
         .get(`${url}warehouse/${currentId}/inventory`)
