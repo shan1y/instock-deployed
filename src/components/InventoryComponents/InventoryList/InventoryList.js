@@ -30,7 +30,8 @@ class InventoryList extends React.Component {
         });
     } else {
       let currentLocation = window.location.href;
-      let currentId = currentLocation.slice(48, 84);
+      let currentId = currentLocation.slice(46, 82);
+      console.log(currentId);
       axios
         .get(`${url}warehouse/${currentId}/inventory`)
         .then((response) => {
