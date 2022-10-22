@@ -15,7 +15,7 @@ class InventoryList extends React.Component {
   };
 
   componentDidMount() {
-    const BASE_INV_URL = `${url}inventory`;
+    const BASE_INV_URL = "https://instock-project.netlify.app/inventory";
     if (window.location.href === BASE_INV_URL) {
       axios
         .get(`${url}inventory`)
